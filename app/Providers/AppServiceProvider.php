@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\IpLocationLocator;
+use App\Locator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Locator::class, function () {
+            return new IpLocationLocator();
+        });
     }
 }
