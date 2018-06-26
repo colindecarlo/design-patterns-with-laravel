@@ -15,7 +15,13 @@ class LocalNewsController extends Controller
         $response = $ipLocator->post('/', ['form_params' => ['ip' => $request->ip()]]);
         $location = json_decode((string)$response->getBody(), true);
 
-        $news = News::near($location)->take(5)->get();
+        $mark = new Mark(
+            $location['country_name'],
+            $location['region_name'],
+            $location['city']
+        );
+
+        $news = News::near($mark)->take(5)->get();
 
         return NewsResource::collection($news);
     }
