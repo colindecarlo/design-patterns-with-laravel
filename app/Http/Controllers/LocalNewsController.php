@@ -12,7 +12,13 @@ class LocalNewsController extends Controller
         $locator = new IpLocation;
         $location = $locator->locate($request->ip());
 
-        $news = News::near($location)->take(5)->get();
+        $mark = new Mark(
+            $location['country_name'],
+            $location['region_name'],
+            $location['city']
+        );
+
+        $news = News::near($mark)->take(5)->get();
 
         return NewsResource::collection($news);
     }
