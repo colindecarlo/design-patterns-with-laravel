@@ -2,9 +2,6 @@
 
 namespace App;
 
-use GuzzleHttp\Client;
-use function GuzzleHttp\json_decode;
-
 class IpLocationLocator implements Locator
 {
     public function fromIp($ipAddress)

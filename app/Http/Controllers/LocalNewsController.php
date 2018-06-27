@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Locator;
 use Illuminate\Http\Request;
 use App\Http\Resources\News as NewsResource;
 
 class LocalNewsController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, Locator $locator)
     {
-        $locator = new IPDatabase;
-        $location = $locator->findByIpAddress($request->ip());
-
-        $mark = new Mark(
-            $location['country'],
-            $location['state_or_province'],
-            $location['city_name']
-        );
+        $mark = $locator->fromIp($request->ip());
 
         $news = News::near($mark)->take(5)->get();
 
