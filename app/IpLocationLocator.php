@@ -9,9 +9,8 @@ class IpLocationLocator implements Locator
 {
     public function fromIp($ipAddress)
     {
-        $ipLocator = new Client(['base_uri' => 'http://iplocation.com']);
-        $response = $ipLocator->post('/', ['form_params' => ['ip' => $ipAddress]]);
-        $location = json_decode((string)$response->getBody(), true);
+        $locator = new IpLocation;
+        $location = $locator->locate($ipAddress);
 
         return new Mark(
             $location['country_name'],
