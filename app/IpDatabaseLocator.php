@@ -2,7 +2,7 @@
 
 namespace App;
 
-class IpDatabaseLocator
+class IpDatabaseLocator implements Locator
 {
     public function fromIp($ipAddress)
     {
