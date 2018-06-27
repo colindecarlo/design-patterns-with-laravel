@@ -35,4 +35,5 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'ip-locator' => env('IP_LOCATOR_SERVICE')
 ];
