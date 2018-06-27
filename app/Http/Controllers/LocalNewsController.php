@@ -9,13 +9,13 @@ class LocalNewsController extends Controller
 {
     public function index(Request $request)
     {
-        $locator = new IpLocation;
-        $location = $locator->locate($request->ip());
+        $locator = new IPDatabase;
+        $location = $locator->findByIpAddress($request->ip());
 
         $mark = new Mark(
-            $location['country_name'],
-            $location['region_name'],
-            $location['city']
+            $location['country'],
+            $location['state_or_province'],
+            $location['city_name']
         );
 
         $news = News::near($mark)->take(5)->get();
